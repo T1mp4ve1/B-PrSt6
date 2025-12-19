@@ -7,6 +7,6 @@ namespace Evento.Models
     {
         [Required]
         [MaxLength(300)]
-        public string DescriptionRole { get; set; }
+        public string? DescriptionRole { get; set; }
     }
 }

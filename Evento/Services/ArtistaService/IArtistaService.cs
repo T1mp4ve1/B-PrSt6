@@ -1,10 +1,11 @@
-﻿using Evento.Models;
+﻿using Evento.Models.DTO.AatistaDTO;
 
 namespace Evento.Services.ArtistaService
 {
     public interface IArtistaService
     {
-        Task CreateAsync(Artista artista);
-        Task<Artista> GetAllAsync();
+        Task<ArtistaDto> CreateAsync(CreateArtistaDto artistaModel);
+        Task<List<ArtistaDto>> GetAllAsync();
+        Task<ArtistaDto?> GetByIdAsync(int id);
     }
 }

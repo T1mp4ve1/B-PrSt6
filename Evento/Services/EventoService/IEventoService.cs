@@ -1,10 +1,11 @@
-﻿using Evento.Models;
+﻿using Evento.Models.DTO.EventDTO;
 
 namespace Evento.Services.EventoService
 {
     public interface IEventoService
     {
-        Task CreateAsync(EventoModel model);
-        Task<EventoModel> GetAllAsync();
+        Task<EventoDto> CreateAsync(CreateEventoDto eventModel);
+        Task<List<EventoDto>> GetAllAsync();
+        Task<EventoDto> GetByIdAsync(int id);
     }
 }
