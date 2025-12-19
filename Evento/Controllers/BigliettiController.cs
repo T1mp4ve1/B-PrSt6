@@ -13,7 +13,7 @@ namespace Evento.Controllers
         public BigliettiController(IBigliettoService service) => _service = service;
 
         [HttpPost]
-        [Authorize] // qualsiasi utente autenticato
+        [Authorize]
         public async Task<IActionResult> Create([FromBody] CreateBigliettoDto dto)
         {
             var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
@@ -25,7 +25,7 @@ namespace Evento.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Roles = "Amministratore")]
+        [Authorize(Roles = "Amministratore")]
         public async Task<IActionResult> GetAll()
         {
             var list = await _service.GetAllAsync();
@@ -39,7 +39,6 @@ namespace Evento.Controllers
             var ticket = await _service.GetByIdAsync(id);
             if (ticket == null) return NotFound();
 
-            // se non admin, assicurarsi che l'utente sia proprietario
             var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
             var isAdmin = User.IsInRole("Amministratore");
             if (!isAdmin && ticket.UserId != userId) return Forbid();
@@ -47,5 +46,22 @@ namespace Evento.Controllers
             return Ok(ticket);
         }
 
+        [HttpDelete("{id:int}")]
+        [Authorize]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            var isAdmin = User.IsInRole("Amministratore");
+
+            var success = await _service.DeleteAsync(id, userId, isAdmin);
+            if (!success)
+            {
+                var ticket = await _service.GetByIdAsync(id);
+                if (ticket == null) return NotFound();
+                return Forbid();
+            }
+
+            return NoContent();
+        }
     }
 }

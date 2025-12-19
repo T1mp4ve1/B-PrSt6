@@ -7,5 +7,6 @@ namespace Evento.Services.BigliettoService
         Task<BigliettoDto> CreateAsync(CreateBigliettoDto biglietto, string userId);
         Task<List<BigliettoDto>> GetAllAsync();
         Task<BigliettoDto> GetByIdAsync(int id);
+        Task<bool> DeleteAsync(int id, string? userId = null, bool isAdmin = false);
     }
 }

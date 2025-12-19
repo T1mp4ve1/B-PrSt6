@@ -1,5 +1,21 @@
 [
   {
+    "ContainingType": "AdminController",
+    "Method": "PromoteToAdmin",
+    "RelativePath": "api/Admin/promote/{userId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Evento.Controllers.ArtistiController",
     "Method": "Create",
     "RelativePath": "api/Artisti",
@@ -30,6 +46,22 @@
     "Method": "GetById",
     "RelativePath": "api/Artisti/{id}",
     "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Evento.Controllers.ArtistiController",
+    "Method": "Delete",
+    "RelativePath": "api/Artisti/{id}",
+    "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -116,6 +148,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Evento.Controllers.BigliettiController",
+    "Method": "Delete",
+    "RelativePath": "api/Biglietti/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Evento.Controllers.EventiController",
     "Method": "GetAll",
     "RelativePath": "api/Eventi",
@@ -146,6 +194,22 @@
     "Method": "GetById",
     "RelativePath": "api/Eventi/{id}",
     "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Evento.Controllers.EventiController",
+    "Method": "Delete",
+    "RelativePath": "api/Eventi/{id}",
+    "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [

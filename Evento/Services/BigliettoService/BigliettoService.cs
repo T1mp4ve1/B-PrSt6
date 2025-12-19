@@ -62,5 +62,22 @@ namespace Evento.Services.BigliettoService
                 UserId = b.UserId
             };
         }
+
+        public async Task<bool> DeleteAsync(int id, string? userId = null, bool isAdmin = false)
+        {
+            var biglietto = await _db.Biglietti.FindAsync(id);
+            if (biglietto == null) return false;
+
+            if (!isAdmin)
+            {
+                if (string.IsNullOrEmpty(userId)) return false;
+                if (!string.Equals(biglietto.UserId, userId, StringComparison.OrdinalIgnoreCase))
+                    return false;
+            }
+
+            _db.Biglietti.Remove(biglietto);
+            await _db.SaveChangesAsync();
+            return true;
+        }
     }
 }

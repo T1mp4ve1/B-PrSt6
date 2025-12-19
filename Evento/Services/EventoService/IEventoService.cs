@@ -7,5 +7,6 @@ namespace Evento.Services.EventoService
         Task<EventoDto> CreateAsync(CreateEventoDto eventModel);
         Task<List<EventoDto>> GetAllAsync();
         Task<EventoDto> GetByIdAsync(int id);
+        Task<bool> DeleteAsync(int id);
     }
 }

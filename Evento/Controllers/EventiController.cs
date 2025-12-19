@@ -30,11 +30,20 @@ namespace Evento.Controllers
         }
 
         [HttpPost]
-        //[Authorize(Roles = "Amministratore")]
+        [Authorize(Roles = "Amministratore")]
         public async Task<IActionResult> Create([FromBody] CreateEventoDto dto)
         {
             var created = await _service.CreateAsync(dto);
             return CreatedAtAction(nameof(GetById), new { id = created.EventoId }, created);
+        }
+
+        [HttpDelete("{id:int}")]
+        [Authorize(Roles = "Amministratore")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var success = await _service.DeleteAsync(id);
+            if (!success) return NotFound();
+            return NoContent();
         }
     }
 }

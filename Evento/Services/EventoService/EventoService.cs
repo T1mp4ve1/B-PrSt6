@@ -65,5 +65,26 @@ namespace Evento.Services.EventoService
                 ArtistaNome = e.Artista?.ArtistaNome
             };
         }
+
+        public async Task<bool> DeleteAsync(int id)
+        {
+            var evento = await _db.Eventi
+                .Include(e => e.Biglietti)
+                .FirstOrDefaultAsync(e => e.EventoId == id);
+
+            if (evento == null) return false;
+
+            using var tx = await _db.Database.BeginTransactionAsync();
+
+            if (evento.Biglietti != null && evento.Biglietti.Any())
+            {
+                _db.Biglietti.RemoveRange(evento.Biglietti);
+            }
+
+            _db.Eventi.Remove(evento);
+            await _db.SaveChangesAsync();
+            await tx.CommitAsync();
+            return true;
+        }
     }
 }

@@ -56,6 +56,17 @@ namespace Evento.Services.ArtistaService
                 Biografia = a.Biografia
             };
         }
+
+        public async Task<bool> DeleteAsync(int id)
+        {
+            var artista = await _db.Artisti.FirstOrDefaultAsync(a => a.ArtistaId == id);
+
+            if (artista == null) return false;
+
+            _db.Artisti.Remove(artista);
+            await _db.SaveChangesAsync();
+            return true;
+        }
     }
 
 }

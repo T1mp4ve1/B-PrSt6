@@ -7,5 +7,6 @@ namespace Evento.Services.ArtistaService
         Task<ArtistaDto> CreateAsync(CreateArtistaDto artistaModel);
         Task<List<ArtistaDto>> GetAllAsync();
         Task<ArtistaDto?> GetByIdAsync(int id);
+        Task<bool> DeleteAsync(int id);
     }
 }
