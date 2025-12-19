@@ -66,6 +66,33 @@ namespace Evento.Services.EventoService
             };
         }
 
+        public async Task<EventoDto?> UpdateAsync(int id, CreateEventoDto dto)
+        {
+            var evento = await _db.Eventi.FindAsync(id);
+            if (evento == null) return null;
+
+            var artista = await _db.Artisti.FindAsync(dto.ArtistaId);
+            if (artista == null) throw new InvalidOperationException("Artista non trovato");
+
+            evento.Titolo = dto.Titolo;
+            evento.DataOra = dto.DataOra;
+            evento.Luogo = dto.Luogo;
+            evento.ArtistaId = dto.ArtistaId;
+
+            _db.Eventi.Update(evento);
+            await _db.SaveChangesAsync();
+
+            return new EventoDto
+            {
+                EventoId = evento.EventoId,
+                Titolo = evento.Titolo,
+                DataOra = evento.DataOra,
+                Luogo = evento.Luogo,
+                ArtistaId = evento.ArtistaId,
+                ArtistaNome = artista.ArtistaNome
+            };
+        }
+
         public async Task<bool> DeleteAsync(int id)
         {
             var evento = await _db.Eventi

@@ -14,7 +14,7 @@ namespace Evento.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Create([FromBody] CreateBigliettoDto dto)
+        public async Task<IActionResult> Create(CreateBigliettoDto dto)
         {
             var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(userId)) return Unauthorized();
@@ -32,7 +32,7 @@ namespace Evento.Controllers
             return Ok(list);
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("{id}")]
         [Authorize]
         public async Task<IActionResult> GetById(int id)
         {
@@ -46,7 +46,7 @@ namespace Evento.Controllers
             return Ok(ticket);
         }
 
-        [HttpDelete("{id:int}")]
+        [HttpDelete("{id}")]
         [Authorize]
         public async Task<IActionResult> Delete(int id)
         {

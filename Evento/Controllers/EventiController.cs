@@ -20,7 +20,7 @@ namespace Evento.Controllers
             return Ok(list);
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("{id}")]
         [AllowAnonymous]
         public async Task<IActionResult> GetById(int id)
         {
@@ -31,13 +31,30 @@ namespace Evento.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Amministratore")]
-        public async Task<IActionResult> Create([FromBody] CreateEventoDto dto)
+        public async Task<IActionResult> Create(CreateEventoDto dto)
         {
             var created = await _service.CreateAsync(dto);
             return CreatedAtAction(nameof(GetById), new { id = created.EventoId }, created);
         }
 
-        [HttpDelete("{id:int}")]
+        [HttpPut("{id}")]
+        [Authorize(Roles = "Amministratore")]
+        public async Task<IActionResult> Update(int id, CreateEventoDto dto)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            try
+            {
+                var updated = await _service.UpdateAsync(id, dto);
+                if (updated == null) return NotFound();
+                return Ok(updated);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
+        }
+
+        [HttpDelete("{id}")]
         [Authorize(Roles = "Amministratore")]
         public async Task<IActionResult> Delete(int id)
         {

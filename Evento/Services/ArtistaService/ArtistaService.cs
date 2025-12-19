@@ -57,6 +57,27 @@ namespace Evento.Services.ArtistaService
             };
         }
 
+        public async Task<ArtistaDto?> UpdateAsync(int id, CreateArtistaDto dto)
+        {
+            var artista = await _db.Artisti.FindAsync(id);
+            if (artista == null) return null;
+
+            artista.ArtistaNome = dto.ArtistaNome;
+            artista.Genere = dto.Genere;
+            artista.Biografia = dto.Biografia;
+
+            _db.Artisti.Update(artista);
+            await _db.SaveChangesAsync();
+
+            return new ArtistaDto
+            {
+                ArtistaId = artista.ArtistaId,
+                ArtistaNome = artista.ArtistaNome,
+                Genere = artista.Genere,
+                Biografia = artista.Biografia
+            };
+        }
+
         public async Task<bool> DeleteAsync(int id)
         {
             var artista = await _db.Artisti.FirstOrDefaultAsync(a => a.ArtistaId == id);

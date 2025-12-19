@@ -25,7 +25,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] RegisterDto dto)
+    public async Task<IActionResult> Register(RegisterDto dto)
     {
         var user = new AppUser
         {
@@ -56,7 +56,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] LoginDto dto)
+    public async Task<IActionResult> Login(LoginDto dto)
     {
         var user = await _userManager.FindByNameAsync(dto.UserName);
         if (user == null) return Unauthorized("Credenziali non valide");
